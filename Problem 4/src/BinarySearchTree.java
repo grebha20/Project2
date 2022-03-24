@@ -12,39 +12,50 @@ public class BinarySearchTree
             this.left=left;
             this.right=right;
         }
-
-        private int getData()
-        {
-            return data;
-        }
     }
 
     private TreeNode root=null;
     boolean pointer=false;
 
-    public void InOrder()
+    public void preOrder()
     {
-        InOrder(root);
+        //Returns error message if the tree is empty
+        if(root!=null)
+        {
+            preOrder(root);
+        }
+        else
+        {
+            System.out.println("Cannot print tree in preOrder format, tree is empty");
+        }
     }
 
-    private void InOrder(TreeNode toPrint)
+    public void preOrder(TreeNode toPrint)
     {
+        System.out.print(toPrint.data + " ");
+
         if(toPrint.left!=null)
         {
-            InOrder(toPrint.left);
+            preOrder(toPrint.left);
         }
-
-        System.out.print(toPrint.getData() + " ");
 
         if(toPrint.right!=null)
         {
-            InOrder(toPrint.right);
+            preOrder(toPrint.right);
         }
     }
 
     public void postOrder()
     {
-        postOrder(root);
+        //Returns error message if the tree is empty
+        if(root!=null)
+        {
+            postOrder(root);
+        }
+        else
+        {
+            System.out.println("Cannot print tree in postOrder format, tree is empty");
+        }
     }
 
     private void postOrder(TreeNode toPrint)
@@ -59,12 +70,45 @@ public class BinarySearchTree
             postOrder(toPrint.right);
         }
 
-        System.out.print(toPrint.getData() + " ");
+        System.out.print(toPrint.data + " ");
     }
 
+    public void inOrder()
+    {
+        //Returns error message if the tree is empty
+        if(root!=null)
+        {
+            inOrder(root);
+        }
+        else
+        {
+            System.out.println("Cannot print tree in inOrder format, tree is empty");
+        }
+    }
+
+    private void inOrder(TreeNode toPrint)
+    {
+        if(toPrint.left!=null)
+        {
+            inOrder(toPrint.left);
+        }
+
+        System.out.print(toPrint.data + " ");
+
+        if(toPrint.right!=null)
+        {
+            inOrder(toPrint.right);
+        }
+    }
 
     public TreeNode ArrayToTree(int array[], int low, int high)
     {
+        //returns null if the given array is empty to prevent error conditions
+        if (array.length==0)
+        {
+            return null;
+        }
+
         int middle = low + (high - low) / 2;
 
         if(!pointer)
