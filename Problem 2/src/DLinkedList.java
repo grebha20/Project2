@@ -6,6 +6,8 @@ public class DLinkedList implements MyList
     private Node tail= null;
     private Node curr= null;
 
+    //Prints the list
+    //Worst case runtime O(n)
     public void printList()
     {
         Node tnode = head;
@@ -16,6 +18,9 @@ public class DLinkedList implements MyList
         }
     }
 
+    //Inserts the element at the desired location, shifting every item back after that
+    //Returns an error if the insertion point is out of bounds
+    //Worst Case runtime O(n)
     @Override
     public boolean insert(int index, Object item)
     {
@@ -23,7 +28,7 @@ public class DLinkedList implements MyList
 
         if(index>size())
         {
-            System.out.println("Element can not be inserted, insertion point out of bounds");
+            System.out.println("Error: insertion point out of bounds");
             return false;
         }
 
@@ -40,7 +45,7 @@ public class DLinkedList implements MyList
 
             for(int i=0; i<index; i++)
             {
-                curr=head.getNext();
+                curr=curr.getNext();
             }
             newNode.setPrev(curr.getPrev());
             curr.getPrev().setNext(newNode);
@@ -53,7 +58,7 @@ public class DLinkedList implements MyList
 
     //Adds the Node to the end of the list,
     // Returns true after the Node has been added to the list.
-    // Runtime O(1)
+    // Worst Case Runtime O(1)
     @Override
     public boolean append(Object item)
     {
@@ -86,8 +91,7 @@ public class DLinkedList implements MyList
         }
         else
         {
-            System.out.println("NulPointerException: head is null");
-            //Return an appropriate error value?
+            System.out.println("NullPointerException: head is null");
         }
     }
 
@@ -124,20 +128,88 @@ public class DLinkedList implements MyList
         return -1;
     }
 
+    //Replaces the element at the desired location
+    //Returns an error if the replacement point is out of bounds
+    //Worst Case runtime O(n)
     @Override
     public boolean replace(int index, Object item)
     {
-        return false;
+        if(index>size())
+        {
+            System.out.println("Error: Replacement point out of bounds");
+            return false;
+        }
+
+        else if(index==0)
+        {
+            head.setObj(item);
+        }
+
+        else
+        {
+            curr=head;
+
+            for(int i=0; i<index; i++)
+            {
+                curr=curr.getNext();
+            }
+            curr.setObj(item);
+        }
+        return true;
     }
 
+    //Removes the Node at a specified point
+    //Returns an error if the removal point is out of bounds
+    //Worst Case runtime O(n)
     @Override
-    public boolean remove(int index) {
-        return false;
+    public boolean remove(int index)
+    {
+        if(index>size())
+        {
+            System.out.println("Error: Removal point out of bounds");
+            return false;
+        }
+
+        else if(index==0)
+        {
+            head=head.getNext();
+        }
+
+        else
+        {
+            curr=head;
+
+            for(int i=0; i<index; i++)
+            {
+                curr=curr.getNext();
+            }
+            curr.getPrev().setNext(curr.getNext());
+            curr.getNext().setPrev(curr.getPrev());
+        }
+        return true;
     }
 
+    //Returns the value of the Node at a specified point
+    //Returns an error if the retrieval point is out of bounds
+    //Worst Case runtime O(n)
     @Override
     public Object get(int index)
     {
-        return null;
+        if(index>size())
+        {
+            System.out.println("Error: Specified point out of bounds");
+            return null;
+        }
+
+        else
+        {
+            curr=head;
+
+            for(int i=0; i<index; i++)
+            {
+                curr=curr.getNext();
+            }
+            return curr.getObj();
+        }
     }
 }
